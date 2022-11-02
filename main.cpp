@@ -34,15 +34,6 @@ void rectangle(bool red, size_t x_start, size_t y_start, size_t x_end, size_t y_
 {
 	size_t temp_height = (size_t)sqrt(x_start * x_start + y_start * y_start);
 
-
-	if (red)
-	{
-		x_start += 64/8;
-		x_end += 64 / 8;
-		y_start += 64 / 8;
-		y_end += 64 / 8;
-	}
-
 	for (int i = x_start; i < x_end; i++)
 	{
 		for (int j = y_start; j < y_end; j++)
@@ -69,6 +60,35 @@ int main()
 	v.AddColor(127, 127, 127, 255, gray_index);
 
 
+	for (size_t i = 0; i < 8; i++)
+	{
+		for (size_t j = 0; j < 8; j++)
+		{
+			if (i % 2 == 0)
+			{
+				if (j % 2 == 0)
+					rectangle(false, 8 + 8 * i, 8 * i + 16, 8 + 8 * j, 8 * j + 16);
+				else
+					rectangle(true, 8 * i, 8 * i + 8, 8 * j, 8 * j + 8);
+
+			}
+			else
+			{
+				//if (j % 2 == 0)
+				//	rectangle(true, 8 + 8 * i, 8 * i + 16, 8 * j, 8 * j + 16);
+				//else
+				//	rectangle(false, 8 * i, 8 * i + 8, 8 * j, 8 * j + 8);
+			}
+			//else
+			//{
+			//	if (j % 2 == 0)
+			//		rectangle(false, 8 * i, 8 * i + 8, 8 * j, 8 * j + 8);
+			//	else
+			//		rectangle(true, 8 * i, 8 * i + 8, 8 * j, 8 * j + 8);
+			//}
+		}
+	}
+	/*
 
 	for (int y = 0; y <= 3; y++)
 	{
@@ -107,7 +127,7 @@ int main()
 		}
 	}
 
-
+	*/
 
 
 
@@ -115,9 +135,7 @@ int main()
 	{
 		for (size_t j = 0; j < image_size; j++)
 		{
-			for (size_t k = 0; k < image_size; k++)
-			{
-				size_t index = k * image_size * image_size + j * image_size + i;
+				size_t index = j * image_size + i;
 
 				if (pixels[index] == 1)
 				{
@@ -126,14 +144,14 @@ int main()
 				}
 				else if (pixels[index] == 2)
 				{
-					v.AddVoxel(i, j, heights[index], 127);
+					v.AddVoxel(i, j, heights[index], red_index);
 				}
 				else
 				{
 					//cout << "gray pixel" << endl;
-					//v.AddVoxel(i, j, k, 127);
+					v.AddVoxel(i, j, heights[index], 170);
 				}
-			}
+
 		}
 	}
 
